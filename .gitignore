@@ -3,6 +3,7 @@ __pycache__/
 *$py.class
 .python-version
 .env
-
 *.egg-info
 dist
+
+dev-notes.md

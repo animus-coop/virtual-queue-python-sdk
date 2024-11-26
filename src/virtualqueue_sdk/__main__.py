@@ -1,3 +1,4 @@
+from pprint import pprint
 import sys
 from virtualqueue_sdk import queues
 
@@ -14,7 +15,7 @@ def main():
     if len(sys.argv) > 1:
         token = sys.argv[1]
         verification_result = queues.verify_finished_line(token)
-        print(verification_result)
+        pprint(verification_result)
         return
 
     _print_welcome()

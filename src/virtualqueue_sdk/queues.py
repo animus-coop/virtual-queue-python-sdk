@@ -32,8 +32,8 @@ def verify_finished_line(token: str) -> VerificationResult:
     if response.status_code == 404:
         return VerificationResult(success=False, message=response_data["message"])
 
-    return VerificationResult(success=False,
+    return VerificationResult(success=True,
                               message=response_data["message"],
-                              data=VerificationResultData(token=response_data["finished_line"]["token"],
-                                                          started_at=response_data["finished_line"]["ingressed_at"],
-                                                          finished_at=response_data["finished_line"]["finished_at"]))
+                              data=VerificationResultData(token=response_data["data"]["token"],
+                                                          started_at=response_data["data"]["finished_line"]["ingressed_at"],
+                                                          finished_at=response_data["data"]["finished_line"]["finished_at"]))
