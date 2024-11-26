@@ -1,7 +1,7 @@
 from importlib import resources
 
 try:
-    import tomllib
+    import tomllib  # type:ignore
 except ModuleNotFoundError:
     import tomli as tomllib  # type:ignore
 
