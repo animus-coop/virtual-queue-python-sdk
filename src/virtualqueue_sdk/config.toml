@@ -1,5 +1,2 @@
-# config.toml
-
 [api]
-base_path = "https://muchticket.virtual-queue.com/api/v1"
-entities.queue = "queue"
+base_path = "https://muchticket.virtual-queue.com/api/v1/"
