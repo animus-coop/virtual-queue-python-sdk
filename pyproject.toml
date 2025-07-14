@@ -1,13 +1,11 @@
 [project]
-name = "virtualqueue_sdk"
-version = "1.0.0"
+name = "vqueue-sdk"
+version = "0.1.0"
 description = "A toolset for Virtual Queue integrations in Python"
 readme = "README.md"
 authors = [{ name = "Animus Coop.", email = "info@animus.com.ar" }]
-license = { file = "LICENSE" }
+license = "MIT"
 classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
 keywords = ["tickets", "queue", "async", "events", "high-demand"]
@@ -46,6 +44,3 @@ unfixable = ["B"]
 
 [project.urls]
 Homepage = "https://github.com/animus-coop/virtual-queue-python-sdk"
-
-[project.scripts]
-virtualqueue = "virtualqueue_sdk.__main__:main"

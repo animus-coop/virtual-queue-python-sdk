@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
+
 import requests
 
-from virtualqueue_sdk.config import API_BASE_PATH
+from ._config import API_BASE_PATH
 
 QUEUES_API_URL = f"{API_BASE_PATH}queue/"
 
@@ -32,8 +33,12 @@ def verify_finished_line(token: str) -> VerificationResult:
     if response.status_code == 404:
         return VerificationResult(success=False, message=response_data["message"])
 
-    return VerificationResult(success=True,
-                              message=response_data["message"],
-                              data=VerificationResultData(token=response_data["data"]["token"],
-                                                          started_at=response_data["data"]["finished_line"]["ingressed_at"],
-                                                          finished_at=response_data["data"]["finished_line"]["finished_at"]))
+    return VerificationResult(
+        success=True,
+        message=response_data["message"],
+        data=VerificationResultData(
+            token=response_data["data"]["token"],
+            started_at=response_data["data"]["finished_line"]["ingressed_at"],
+            finished_at=response_data["data"]["finished_line"]["finished_at"],
+        ),
+    )
