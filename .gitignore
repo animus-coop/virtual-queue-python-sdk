@@ -1,9 +1,16 @@
+# Python-generated files
 __pycache__/
 *.py[cod]
 *$py.class
 .python-version
 .env
 *.egg-info
-dist
+dist/
+wheels/
+build/
 
+# Virtual environments
+.venv
+
+# Development
 dev-notes.md
