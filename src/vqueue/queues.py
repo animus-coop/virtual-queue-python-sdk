@@ -1,11 +1,11 @@
 from pathlib import Path
-from uuid import UUID
 
 import requests
 
 from ._config import API_BASE_PATH
 from .exceptions import VQueueApiError, VQueueError, VQueueNetworkError
 from .types import VerificationResult, VerificationResultData
+from .utils import validate_uuidv4
 
 QUEUES_API_URL = Path(API_BASE_PATH).joinpath("queue/")
 VERIFY_API_URL = QUEUES_API_URL.joinpath("verify")
@@ -38,7 +38,7 @@ class TokenVerifier:
             VQueueError: For unexpected API-related errors.
         """
 
-        uuid_token = UUID(token, version=4)
+        uuid_token = validate_uuidv4(token)
 
         try:
             response = self.session.get(f"{VERIFY_API_URL}?token={uuid_token}")
