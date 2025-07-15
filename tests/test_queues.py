@@ -3,7 +3,6 @@ import requests
 
 from vqueue.exceptions import VQueueApiError, VQueueError, VQueueNetworkError
 from vqueue.queues import TokenVerifier
-from vqueue.types import VerificationResultData
 
 INVALID_TOKEN = "invalid1-f37d-499f-b30d-7542a7b4f5db"
 VALID_TOKEN_SUCCESS_TRUE = "f1a10b71-f37d-499f-b30d-7542a7b4f5db"
