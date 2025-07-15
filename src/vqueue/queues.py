@@ -51,22 +51,25 @@ class TokenVerifier:
         try:
             response = self.session.get(f"{VERIFY_API_URL}?token={uuid_token}")
             response_data = response.json()
+        except requests.JSONDecodeError as e:
+            raise VQueueError("Invalid JSON response") from e
         except requests.exceptions.RequestException as e:
             raise VQueueNetworkError from e
-        except ValueError as e:
-            raise VQueueError("Invalid JSON response") from e
 
         if 200 <= response.status_code < 300:
             if response_data["success"]:
-                return VerificationResult(
-                    success=True,
-                    message=response_data["message"],
-                    data=VerificationResultData(
-                        token=response_data["data"]["token"],
-                        ingressed_at=response_data["data"]["finished_line"]["ingressed_at"],
-                        finished_at=response_data["data"]["finished_line"]["finished_at"],
-                    ),
-                )
+                try:
+                    return VerificationResult(
+                        success=True,
+                        message=response_data["message"],
+                        data=VerificationResultData(
+                            token=response_data["data"]["token"],
+                            ingressed_at=response_data["data"]["finished_line"]["ingressed_at"],
+                            finished_at=response_data["data"]["finished_line"]["finished_at"],
+                        ),
+                    )
+                except Exception as e:
+                    raise VQueueError("Bad format in response") from e
 
             raise VQueueError("HTTP response is OK, but the body `success` field is not `True`.")
 
