@@ -18,6 +18,10 @@ class TokenVerifier:
         """Initialize the TokenVerifier with a network session"""
         self.session = requests.Session()
 
+    def __del__(self):
+        """Destructor"""
+        self.session.close()
+
     def verify_token(self, token: str) -> VerificationResult:
         """Verify the given token and return the data related to the queue.
 
