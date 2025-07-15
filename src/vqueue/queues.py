@@ -51,8 +51,10 @@ class TokenVerifier:
         try:
             response = self.session.get(f"{VERIFY_API_URL}?token={uuid_token}")
             response_data = response.json()
-        except Exception as e:
+        except requests.exceptions.RequestException as e:
             raise VQueueNetworkError from e
+        except ValueError as e:
+            raise VQueueError("Invalid JSON response") from e
 
         if 200 <= response.status_code < 300:
             if response_data["success"]:
