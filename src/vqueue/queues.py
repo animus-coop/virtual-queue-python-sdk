@@ -1,4 +1,4 @@
-from pathlib import Path
+from urllib.parse import urljoin
 
 import requests
 
@@ -7,8 +7,8 @@ from .exceptions import VQueueApiError, VQueueError, VQueueNetworkError
 from .types import VerificationResult, VerificationResultData
 from .utils import validate_uuidv4
 
-QUEUES_API_URL = Path(API_BASE_PATH).joinpath("queue/")
-VERIFY_API_URL = QUEUES_API_URL.joinpath("verify")
+QUEUES_API_URL = urljoin(API_BASE_PATH, "queue/")
+VERIFY_API_URL = urljoin(QUEUES_API_URL, "verify")
 
 
 class TokenVerifier:
