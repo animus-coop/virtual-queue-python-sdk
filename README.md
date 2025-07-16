@@ -2,28 +2,58 @@
 
 SDK to communicate with Virtual Queue's API in Python projects.
 
-## Development
+## How to use
 
-Some development notes
+> [!NOTE]
+> See (`examples/`)[./examples/] for more
 
-### Coding style guidelines
+You can verify the token with `TokenVerifier` like this:
 
-The configurations in [.editorconfig](./.editorconfig) and some in [pyproject.toml](./pyptoject.toml) are put in place in order to format and check compliance with [PEP 8](https://pep8.org) (with some exceptions).
+```python
+from vqueue import TokenVerifier
+from vqueue.exceptions import VQueueApiError, VQueueError, VQueueNetworkError
 
-[.pre-commit-config.yaml](./.pre-commit-config.yaml) defines a set of hooks to be executed right before each commit so that [ruff](https://docs.astral.sh/ruff/) (a blazingly fast linter and formatter) is called on the changes made.
 
-This project uses [`uv`](https://docs.astral.sh/uv/) as package and project manager. To set it up:
+def your_function_or_handler():
+    # Get the token from the request in your system
+    token = str(uuid4())  # This is an example UUIDv4
 
-1. Create a virtual environment and install the packages:
-    ```shell
-    uv sync
-    ```
-2. Install the hooks running:
-    ```shell
-    uvx pre-commit install
-    ```
-3. Now on every `git commit` the `pre-commit` hook (inside `.git/hooks/`) will be run.
+    # This handles the connections with a session and can be reused
+    # for better performance
+    verifier = TokenVerifier()
 
-#### Configuring your editor
+    try:
+        # Handle the happy path
+        verified_result = verifier.verify_token(token)
+        print("The token was successfuly verified:", verified_result)
+    except ValueError as ve:
+        # Then handle the possible errors
+        # Of course, you should handle the exceptions with more grace than this
+        print("The token is not valir UUID", ve)
+    except VQueueNetworkError as ne:
+        print("Network error", ne)
+    except VQueueApiError as ae:
+        print("The API returned an error status", ae)
+    except VQueueError as vqe:
+        print("A generic error with the Virtual Queue system or this SDK", vqe)
+```
 
-To configure your code editor [read `ruff`'s documentation about it](https://docs.astral.sh/ruff/editors/).
+You can also wrap your code in a context managed `with` block:
+
+```python
+    with TokenVerifier() as verfifier:
+        try:
+            # Handle the happy path
+            verified_result = verifier.verify_token(token)
+            print("The token was successfuly verified:", verified_result)
+        except ValueError as ve:
+            # Then handle the possible errors
+            # Of course, you should handle the exceptions with more grace than this
+            print("The token is not valir UUID", ve)
+        except VQueueNetworkError as ne:
+            print("Network error", ne)
+        except VQueueApiError as ae:
+            print("The API returned an error status", ae)
+        except VQueueError as vqe:
+            print("A generic error with the Virtual Queue system or this SDK", vqe)
+```
