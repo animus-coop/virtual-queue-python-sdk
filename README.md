@@ -5,7 +5,7 @@ SDK to communicate with Virtual Queue's API in Python projects.
 ## How to use
 
 > [!NOTE]
-> See (`examples/`)[./examples/] for more
+> See [`examples/`](./examples/) for more
 
 You can verify the token with `TokenVerifier` like this:
 
