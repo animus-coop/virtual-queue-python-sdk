@@ -75,7 +75,7 @@ class TokenVerifier:
 
         raise VQueueApiError(
             response.status_code,
-            response_data["message"],
-            response_data["error_code"],
-            response_data["data"],
+            response_data.get("message"),
+            response_data.get("error_code"),
+            response_data.get("data"),
         )
