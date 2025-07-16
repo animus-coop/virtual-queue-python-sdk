@@ -5,6 +5,7 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib
 
-_cfg = tomllib.loads(resources.read_text("vqueue", "config.toml"))
+with (resources.files("vqueue").joinpath("config.toml")).open("r") as config_file:
+    _cfg = tomllib.loads(config_file.read())
 
 API_BASE_PATH = _cfg["api"]["base_path"]
