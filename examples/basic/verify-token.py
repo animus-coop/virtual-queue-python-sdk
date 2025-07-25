@@ -9,7 +9,8 @@ def your_function_or_handler():
     token = str(uuid4())  # This is an example UUIDv4
 
     # This handles the connections with a session and can be reused
-    # for better performance
+    # for better performance. The `verification_url` keyword arguement
+    # can be set to your url or leave blank to use a default one
     verifier = TokenVerifier()
 
     try:
