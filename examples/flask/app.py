@@ -12,7 +12,9 @@ def get_token_verifier() -> TokenVerifier:
     It's a good practice in order to reuse connections.
     """
     if "VQueueTokenVerifier" not in g:
-        g.VQueueTokenVerifier = TokenVerifier()
+        # This is an example, the `verification_url` keyword arguement can be set to
+        # your verification url or leave blank to use a default url
+        g.VQueueTokenVerifier = TokenVerifier(verification_url="http://localhost:8000")
 
     return g.VQueueTokenVerifier
 

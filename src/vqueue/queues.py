@@ -14,9 +14,14 @@ VERIFY_API_URL = urljoin(QUEUES_API_URL, "verify")
 class TokenVerifier:
     """Client to verify Virtual Queue tokens"""
 
-    def __init__(self):
-        """Initialize the TokenVerifier with a network session"""
+    def __init__(self, *, verification_url: str | None = None):
+        """Initialize the TokenVerifier with a network session
+
+        Args:
+            verification_url: URL of the verification service. If none is given, a default value will be used
+        """
         self.session = requests.Session()
+        self._verification_token = verification_url or VERIFY_API_URL
 
     def close(self):
         self.session.close()
@@ -49,7 +54,7 @@ class TokenVerifier:
         uuid_token = validate_uuidv4(token)
 
         try:
-            response = self.session.get(f"{VERIFY_API_URL}?token={uuid_token}")
+            response = self.session.get(f"{self._verification_token}?token={uuid_token}")
             response_data = response.json()
         except requests.JSONDecodeError as e:
             raise VQueueError("Invalid JSON response") from e
