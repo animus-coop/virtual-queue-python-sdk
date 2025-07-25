@@ -5,7 +5,7 @@ SDK to communicate with Virtual Queue's API in Python projects.
 ## How to use
 
 > [!NOTE]
-> See [`examples/`](./examples/) for more
+> See more examples [here](https://github.com/animus-coop/virtual-queue-python-sdk/tree/main/examples), including an example of how to use this SDK inside a Flask application
 
 You can verify the token with `TokenVerifier` like this:
 
