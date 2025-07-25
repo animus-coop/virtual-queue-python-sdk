@@ -1,6 +1,6 @@
 [project]
 name = "vqueue-sdk"
-version = "0.1.1"
+version = "0.1.2"
 description = "A toolset for Virtual Queue integrations in Python"
 readme = "README.md"
 authors = [{ name = "Animus Coop.", email = "info@animus.com.ar" }]
